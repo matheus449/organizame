@@ -2,8 +2,8 @@
   "name": "Organiza-Me",
   "short_name": "Organiza-Me",
   "description": "Organize sua vida com mais leveza",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/organizame/",
+  "scope": "/organizame/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#F8FAFC",
@@ -15,19 +15,13 @@
       "src": "logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.jpg",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     }
   ],
   "categories": ["productivity", "lifestyle"],
@@ -38,14 +32,14 @@
       "name": "Bloco de Notas",
       "short_name": "Notas",
       "description": "Acessar bloco de notas",
-      "url": "/?tab=diario",
+      "url": "/organizame/?tab=diario",
       "icons": [{ "src": "logo.png", "sizes": "96x96" }]
     },
     {
       "name": "Agenda",
       "short_name": "Agenda",
       "description": "Ver agenda",
-      "url": "/?tab=agenda",
+      "url": "/organizame/?tab=agenda",
       "icons": [{ "src": "logo.png", "sizes": "96x96" }]
     }
   ]
