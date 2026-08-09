@@ -1,12 +1,52 @@
 {
-  "background_color": "#f8fafc",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "Organiza-me",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Organiza-me",
+  "name": "Organiza-Me",
+  "short_name": "Organiza-Me",
+  "description": "Organize sua vida com mais leveza",
   "start_url": "/",
-  "theme_color": "#dc2626",
-  "lang": "pt"
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F8FAFC",
+  "theme_color": "#DC2626",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["productivity", "lifestyle"],
+  "prefer_related_applications": false,
+  "display_override": ["standalone", "minimal-ui"],
+  "shortcuts": [
+    {
+      "name": "Bloco de Notas",
+      "short_name": "Notas",
+      "description": "Acessar bloco de notas",
+      "url": "/?tab=diario",
+      "icons": [{ "src": "logo.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Agenda",
+      "short_name": "Agenda",
+      "description": "Ver agenda",
+      "url": "/?tab=agenda",
+      "icons": [{ "src": "logo.jpg", "sizes": "96x96" }]
+    }
+  ]
 }
