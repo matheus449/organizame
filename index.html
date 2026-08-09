@@ -202,7 +202,25 @@
         .modal-btn-cancel { background-color: #F3F4F6; color: #6B7280; }
         .modal-btn-confirm { background-color: #DC2626; color: #FFF; display: flex; align-items: center; justify-content: center; gap: 8px; }
     </style>
+
+   <!-- Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- Ícones -->
+<link rel="icon" type="image/jpeg" href="/logo.png">
+<link rel="apple-touch-icon" href="/logo.png">
+
+<!-- Cor da barra de status (iOS) -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#DC2626">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#DC2626">
+
 </head>
+<script>
+
+<script>
+	If(typeof navigator.serviceWorker !== 'undefined') { navigator.serviceWorker.register('pwabuilder-sw.js') }
+</script>
 <body>
     <div id="root">
         <div class="safe-area">
