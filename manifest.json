@@ -12,21 +12,21 @@
   "dir": "ltr",
   "icons": [
     {
-      "src": "logo.jpg",
+      "src": "logo.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "logo.jpg",
+      "src": "logo.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
       "src": "logo.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ],
@@ -39,14 +39,14 @@
       "short_name": "Notas",
       "description": "Acessar bloco de notas",
       "url": "/?tab=diario",
-      "icons": [{ "src": "logo.jpg", "sizes": "96x96" }]
+      "icons": [{ "src": "logo.png", "sizes": "96x96" }]
     },
     {
       "name": "Agenda",
       "short_name": "Agenda",
       "description": "Ver agenda",
       "url": "/?tab=agenda",
-      "icons": [{ "src": "logo.jpg", "sizes": "96x96" }]
+      "icons": [{ "src": "logo.png", "sizes": "96x96" }]
     }
   ]
 }
