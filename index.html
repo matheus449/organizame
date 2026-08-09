@@ -8,26 +8,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FFFFFF; -webkit-font-smoothing: antialiased; }
         html, body { width: 100%; height: 100%; overflow: hidden; }
-        #root { width: 100%; height: 100dvh; min-height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-        .safe-area { flex: 1; min-height: 0; display: flex; flex-direction: column; background-color: #FFFFFF; overflow: hidden; }
-        .status-bar { height: 44px; flex: 0 0 44px; background-color: #FFFFFF; border-bottom: 1px solid #F3F4F6; }
-        #app-content { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
-        .main-container { flex: 1; min-height: 0; display: flex; flex-direction: column; height: 100%; overflow: hidden; }
-        .screen-content { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; background: #F8FAFC; -webkit-overflow-scrolling: touch; padding-bottom: 96px; }
-        .tab-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; display: flex; flex-shrink: 0; background: #FFFFFF; border-top: 1px solid #F3F4F6; padding: 8px 0 calc(8px + env(safe-area-inset-bottom)); justify-content: space-around; box-shadow: 0 -2px 10px rgba(0,0,0,0.06); }
+        #root { height: 100dvh; min-height: 100dvh; display: flex; flex-direction: column; }
+        .safe-area { flex: 1; min-height: 0; display: flex; flex-direction: column; background-color: #FFFFFF; }
+        .status-bar { height: 44px; min-height: 44px; background-color: #FFFFFF; border-bottom: 1px solid #F3F4F6; }
+        #app-content { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+        .main-container { flex: 1; min-height: 0; display: flex; flex-direction: column; height: 100%; position: relative; }
+        .screen-content { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; background: #F8FAFC; -webkit-overflow-scrolling: touch; padding-bottom: 12px; }
+        .screen-content.screen-transition { animation: screenTransition 0.28s ease-out both; }
+        @keyframes screenTransition { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        .tab-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; display: flex; background: #FFFFFF; border-top: 1px solid #F3F4F6; padding: 8px 0 max(10px, env(safe-area-inset-bottom)); justify-content: space-around; box-shadow: 0 -2px 10px rgba(0,0,0,0.04); }
         .tab-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 5px 15px; transition: all 0.2s; }
         .tab-item.active { color: #DC2626; }
         .tab-item:not(.active) { color: #9CA3AF; }
         .tab-icon { font-size: 24px; margin-bottom: 2px; }
         .tab-label { font-size: 11px; font-weight: 500; }
-        @media (max-height: 650px) {
-            .status-bar { height: 24px; flex-basis: 24px; }
-            .tab-bar { padding-top: 5px; }
-            .tab-item { padding: 3px 10px; }
-            .tab-icon { font-size: 21px; }
-            .tab-label { font-size: 10px; }
-            .screen-content { padding-bottom: 82px; }
-        }
         .loading-container { display: flex; justify-content: center; align-items: center; height: 100%; background: #FFFFFF; }
         .spinner { width: 40px; height: 40px; border: 3px solid #F3F4F6; border-top: 3px solid #DC2626; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -51,7 +45,7 @@
         .login-button:disabled { opacity: 0.6; cursor: not-allowed; }
         .login-button-icon { font-size: 20px; }
         .login-footer-text { text-align: center; font-size: 12px; color: #9CA3AF; margin: 0; }
-        .home-screen { padding: 20px; background-color: #F8FAFC; min-height: 100%; }
+        .home-screen { padding: 20px 20px 110px; background-color: #F8FAFC; min-height: 100%; }
         .home-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .home-saudacao { font-size: 16px; color: #6B7280; margin: 0; }
         .home-titulo { font-size: 28px; font-weight: bold; color: #1F2937; margin: 2px 0 0 0; }
@@ -92,7 +86,7 @@
         .home-dica-card.active { opacity: 1; }
         .home-dica-titulo { font-size: 14px; font-weight: 600; color: #1F2937; margin: 0 0 2px 0; }
         .home-dica-descricao { font-size: 12px; color: #6B7280; line-height: 17px; margin: 0; }
-        .diario-screen { padding: 20px; min-height: 100%; }
+        .diario-screen { padding: 20px 20px 110px; min-height: 100%; }
         .diario-date-title { font-size: 14px; color: #6B7280; margin-bottom: 4px; }
         .diario-header-title { font-size: 22px; font-weight: bold; color: #1F2937; margin-bottom: 16px; }
         .diario-textarea { width: 100%; min-height: 200px; background: #FFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 16px; font-size: 15px; color: #1F2937; resize: vertical; font-family: inherit; line-height: 1.5; }
@@ -100,12 +94,33 @@
         .diario-save-btn { background-color: #DC2626; color: #FFF; font-size: 15px; font-weight: 600; padding: 14px 24px; border-radius: 12px; border: none; cursor: pointer; margin-top: 12px; width: 100%; }
         .diario-save-btn:hover { opacity: 0.9; }
         .diario-success-msg { background-color: #F0FDF4; color: #22C55E; padding: 10px; border-radius: 8px; text-align: center; margin-top: 8px; font-size: 13px; display: none; }
-        .perfil-screen { padding: 20px; background-color: #F8FAFC; min-height: 100%; }
+        .diario-notas-section { margin-top: 20px; padding-bottom: 30px; }
+        .diario-notas-title { font-size: 18px; font-weight: bold; color: #1F2937; margin-bottom: 12px; }
+        .diario-nota-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+        .diario-nota-data { font-size: 12px; color: #6B7280; margin-bottom: 8px; font-weight: 600; }
+        .diario-nota-texto { font-size: 15px; color: #1F2937; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+        .diario-nota-acoes { display: flex; gap: 8px; margin-top: 14px; }
+        .diario-nota-btn { flex: 1; border: none; border-radius: 9px; padding: 9px 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .diario-nota-btn-editar { background: #EFF6FF; color: #2563EB; }
+        .diario-nota-btn-excluir { background: #FEF2F2; color: #DC2626; }
+        .diario-nota-editando { width: 100%; min-height: 120px; background: #FFF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px; font-size: 15px; color: #1F2937; resize: vertical; font-family: inherit; line-height: 1.5; }
+        .diario-nota-editando:focus { outline: none; border-color: #3B82F6; }
+        .diario-edicao-acoes { display: flex; gap: 8px; margin-top: 10px; }
+        .diario-edicao-btn { flex: 1; border: none; border-radius: 9px; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .diario-edicao-salvar { background: #DC2626; color: #FFF; }
+        .diario-edicao-cancelar { background: #F3F4F6; color: #6B7280; }
+        .diario-sem-notas { background: #FFFFFF; border: 1px dashed #E5E7EB; border-radius: 12px; padding: 20px; text-align: center; color: #6B7280; font-size: 13px; }
+        .perfil-screen { padding-bottom: 110px; padding: 20px; background-color: #F8FAFC; min-height: 100%; }
         .perfil-card { background: #FFF; border-radius: 16px; padding: 24px; text-align: center; border: 1px solid #F3F4F6; margin-bottom: 16px; }
-        .perfil-avatar { width: 80px; height: 80px; border-radius: 50%; background-color: #FEE2E2; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px; border: 3px solid #DC2626; }
-        .perfil-avatar-letra { font-size: 32px; font-weight: bold; color: #DC2626; }
-        .perfil-nome { font-size: 20px; font-weight: bold; color: #1F2937; }
-        .perfil-email { font-size: 14px; color: #6B7280; margin-top: 4px; }
+        .perfil-avatar { width: 100px; height: 100px; border-radius: 50%; background-color: #FEE2E2; display: flex; justify-content: center; align-items: center; margin: 0 auto 14px; border: 3px solid #DC2626; overflow: hidden; }
+        .perfil-avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .perfil-avatar-letra { font-size: 38px; font-weight: bold; color: #DC2626; }
+        .perfil-nome { font-size: 20px; font-weight: bold; color: #1F2937; margin: 0; }
+        .perfil-foto-texto { font-size: 13px; color: #6B7280; margin: 8px 0 14px; }
+        .perfil-foto-botoes { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .perfil-foto-btn { background-color: #DC2626; color: #FFF; font-size: 13px; font-weight: 600; padding: 11px 14px; border-radius: 10px; border: none; cursor: pointer; }
+        .perfil-foto-btn.secundario { background-color: #F3F4F6; color: #374151; }
+        .perfil-foto-input { display: none; }
         .perfil-logout-btn { background-color: #EF4444; color: #FFF; font-size: 15px; font-weight: 600; padding: 14px; border-radius: 12px; border: none; cursor: pointer; width: 100%; margin-top: 12px; }
         .perfil-logout-btn:hover { opacity: 0.9; }
         .agenda-screen { background-color: #FAFAFA; min-height: 100%; padding-bottom: 20px; }
@@ -187,8 +202,38 @@
         .modal-btn { flex: 1; padding: 14px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 15px; font-weight: 600; border: none; }
         .modal-btn-cancel { background-color: #F3F4F6; color: #6B7280; }
         .modal-btn-confirm { background-color: #DC2626; color: #FFF; display: flex; align-items: center; justify-content: center; gap: 8px; }
+            @media (max-height: 650px) {
+            .status-bar { height: 32px; min-height: 32px; }
+            .tab-bar { padding-top: 4px; }
+            .tab-item { padding: 3px 10px; }
+            .tab-icon { font-size: 20px; margin-bottom: 1px; }
+            .tab-label { font-size: 10px; }
+        }
+        @media (max-width: 360px) {
+            .tab-item { padding-left: 6px; padding-right: 6px; }
+            .tab-icon { font-size: 20px; }
+            .tab-label { font-size: 9px; }
+        }
     </style>
+
+   <!-- Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Ícones -->
+<link rel="icon" type="image/jpeg" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<!-- Cor da barra de status (iOS) -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#DC2626">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#DC2626">
+
 </head>
+<script>
+
+<script>
+	If(typeof navigator.serviceWorker !== 'undefined') { navigator.serviceWorker.register('pwabuilder-sw.js') }
+</script>
 <body>
     <div id="root">
         <div class="safe-area">
@@ -232,8 +277,12 @@
         }
         function switchTab(tabName) {
             currentTab = tabName; const sc = document.getElementById('screen-content');
+            if(!sc)return;
             if(intervaloFrases)clearInterval(intervaloFrases); if(intervaloDicas)clearInterval(intervaloDicas);
             document.querySelectorAll('.tab-item').forEach((item,i)=>{ item.classList.toggle('active',Tabs[i].name===tabName); });
+            sc.classList.remove('screen-transition');
+            void sc.offsetWidth;
+            sc.classList.add('screen-transition');
             if(tabName==='Home')renderHome(sc); else if(tabName==='Diario')renderDiario(sc); else if(tabName==='Agenda')renderAgenda(sc); else if(tabName==='Perfil')renderPerfil(sc);
         }
 
@@ -260,7 +309,7 @@
             const user=AppState.user||{nome:'Usuário'},nome=user.nome||'Usuário',primeiraLetra=nome.charAt(0).toUpperCase();
             const saudacao=()=>{const hora=new Date().getHours();return hora>=5&&hora<12?'Bom dia':hora>=12&&hora<18?'Boa tarde':'Boa noite';};
             const fotoPerfil=localStorage.getItem('@organizame:foto_perfil')||null;
-            container.innerHTML='<div class="home-screen"><div class="home-header"><div><p class="home-saudacao">👋 '+saudacao()+'!</p><h1 class="home-titulo">'+nome+'</h1></div>'+(fotoPerfil?'<img src="'+fotoPerfil+'" class="home-avatar-img" alt="Foto" />':'<div class="home-avatar"><span class="home-avatar-letra">'+primeiraLetra+'</span></div>')+'</div><div class="home-frases-container" id="frasesContainer"><div class="home-frases-track" id="frasesTrack"></div><div class="home-indicadores" id="frasesIndicadores"></div></div><div class="home-compromissos-section"><div class="home-secao-header"><h3 class="home-section-title">📅 Próximos Compromissos</h3><button class="home-link-btn" onclick="switchTab(\'Agenda\')">Ver todos</button></div><div id="compromissosContainer"></div></div><div class="home-dicas-section"><div class="home-dicas-header"><h3 class="home-dicas-title">🌿 Inspire-se</h3><span class="home-dicas-counter" id="dicasCounter">1/20</span></div><div class="home-dicas-track" id="dicasTrack"></div><div class="home-indicadores" id="dicasIndicadores"></div></div><div style="height:40px;"></div></div>';
+            container.innerHTML='<div class="home-screen"><div class="home-header"><div><p class="home-saudacao">👋 '+saudacao()+'!</p><h1 class="home-titulo">'+nome+'</h1></div>'+(fotoPerfil?'<img src="'+fotoPerfil+'" class="home-avatar-img" alt="Foto" />':'<div class="home-avatar"><span class="home-avatar-letra">'+primeiraLetra+'</span></div>')+'</div><div class="home-frases-container" id="frasesContainer"><div class="home-frases-track" id="frasesTrack"></div><div class="home-indicadores" id="frasesIndicadores"></div></div><div class="home-compromissos-section"><div class="home-secao-header"><h3 class="home-section-title">📅 Próximos Compromissos</h3><button class="home-link-btn" onclick="switchTab(\'Agenda\')">Ver todos</button></div><div id="compromissosContainer"></div></div><div class="home-dicas-section"><div class="home-dicas-header"><h3 class="home-dicas-title">🌿 Inspire-se</h3><span class="home-dicas-counter" id="dicasCounter">1/20</span></div><div class="home-dicas-track" id="dicasTrack"></div><div class="home-indicadores" id="dicasIndicadores"></div></div><div style="height:110px;"></div></div>';
             setTimeout(()=>{inicializarFrases();carregarCompromissos();inicializarDicas();},100);
         }
         function inicializarFrases(){
@@ -293,14 +342,218 @@
         }
 
         // ========== DIÁRIO ==========
-        function renderDiario(container){
-            const hoje=new Date().toISOString().split('T')[0],diarioKey='@diario_'+hoje,salvo=localStorage.getItem(diarioKey)||'';
-            container.innerHTML='<div class="diario-screen"><p class="diario-date-title">'+new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</p><h1 class="diario-header-title">📖 Bloco de notas</h1><textarea class="diario-textarea" id="diarioTextarea" placeholder="Escreva suas anotações aqui...">'+salvo+'</textarea><button class="diario-save-btn" onclick="salvarDiario()">💾 Salvar anotações</button><div class="diario-success-msg" id="diarioSuccess">✅ Salvo com sucesso!</div></div>';
+        let diarioNotaEditandoId = null;
+
+        function getNotasDiario(){
+            const hoje=new Date().toISOString().split('T')[0];
+            const chave='@diario_'+hoje;
+            try{
+                const salvo=localStorage.getItem(chave);
+                if(!salvo)return [];
+                const dados=JSON.parse(salvo);
+                if(Array.isArray(dados))return dados;
+                if(typeof dados==='string' && dados.trim())return [{id:'nota-legado-'+hoje,texto:dados,data:new Date().toISOString()}];
+                return [];
+            }catch(e){
+                const texto=localStorage.getItem(chave)||'';
+                return texto.trim()?[{id:'nota-legado-'+hoje,texto:texto,data:new Date().toISOString()}]:[];
+            }
         }
-        function salvarDiario(){const hoje=new Date().toISOString().split('T')[0],texto=document.getElementById('diarioTextarea');if(!texto)return;localStorage.setItem('@diario_'+hoje,texto.value);const msg=document.getElementById('diarioSuccess');if(msg){msg.style.display='block';setTimeout(()=>{msg.style.display='none';},2000);}}
+
+        function salvarNotasDiario(notas){
+            const hoje=new Date().toISOString().split('T')[0];
+            localStorage.setItem('@diario_'+hoje,JSON.stringify(notas));
+        }
+
+        function escaparHtmlDiario(texto){
+            return String(texto).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+        }
+
+        function renderDiario(container){
+            const hoje=new Date().toISOString().split('T')[0];
+            const notas=getNotasDiario();
+            const dataFormatada=new Date(hoje+'T00:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+            let notasHtml='';
+            if(notas.length===0){
+                notasHtml='<div class="diario-sem-notas">Nenhuma anotação salva hoje.</div>';
+            }else{
+                notasHtml=notas.slice().reverse().map(function(nota){
+                    const hora=nota.data?new Date(nota.data).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}):'';
+                    const estaEditando=diarioNotaEditandoId===nota.id;
+                    if(estaEditando){
+                        return '<div class="diario-nota-card"><div class="diario-nota-data">📅 '+dataFormatada+(hora?' • '+hora:'')+'</div><textarea class="diario-nota-editando" id="diarioEdit_'+nota.id+'">'+escaparHtmlDiario(nota.texto)+'</textarea><div class="diario-edicao-acoes"><button class="diario-edicao-btn diario-edicao-salvar" onclick="salvarEdicaoDiario(\''+nota.id+'\')">💾 Salvar</button><button class="diario-edicao-btn diario-edicao-cancelar" onclick="cancelarEdicaoDiario()">Cancelar</button></div></div>';
+                    }
+                    return '<div class="diario-nota-card"><div class="diario-nota-data">📅 '+dataFormatada+(hora?' • '+hora:'')+'</div><div class="diario-nota-texto">'+escaparHtmlDiario(nota.texto)+'</div><div class="diario-nota-acoes"><button class="diario-nota-btn diario-nota-btn-editar" onclick="editarNotaDiario(\''+nota.id+'\')">✏️ Editar</button><button class="diario-nota-btn diario-nota-btn-excluir" onclick="excluirNotaDiario(\''+nota.id+'\')">🗑️ Excluir</button></div></div>';
+                }).join('');
+            }
+            container.innerHTML='<div class="diario-screen"><p class="diario-date-title">'+dataFormatada+'</p><h1 class="diario-header-title">📖 Bloco de notas</h1><textarea class="diario-textarea" id="diarioTextarea" placeholder="Escreva suas anotações aqui..."></textarea><button class="diario-save-btn" onclick="salvarDiario()">💾 Salvar anotações</button><div class="diario-success-msg" id="diarioSuccess">✅ Salvo com sucesso!</div><div class="diario-notas-section"><h2 class="diario-notas-title">📝 Minhas anotações</h2><div id="diarioNotasLista">'+notasHtml+'</div></div></div>';
+        }
+
+        function salvarDiario(){
+            const texto=document.getElementById('diarioTextarea');
+            if(!texto)return;
+            const conteudo=texto.value.trim();
+            if(!conteudo){alert('Escreva alguma anotação antes de salvar.');return;}
+            const notas=getNotasDiario();
+            notas.push({id:Date.now().toString()+Math.random().toString(36).substr(2,5),texto:conteudo,data:new Date().toISOString()});
+            salvarNotasDiario(notas);
+            texto.value='';
+            renderDiario(document.getElementById('screen-content'));
+            const msg=document.getElementById('diarioSuccess');
+            if(msg){msg.style.display='block';setTimeout(function(){msg.style.display='none';},2000);}
+        }
+
+        function editarNotaDiario(id){
+            diarioNotaEditandoId=id;
+            renderDiario(document.getElementById('screen-content'));
+            setTimeout(function(){
+                const campo=document.getElementById('diarioEdit_'+id);
+                if(campo){campo.focus();campo.setSelectionRange(campo.value.length,campo.value.length);}
+            },50);
+        }
+
+        function cancelarEdicaoDiario(){
+            diarioNotaEditandoId=null;
+            renderDiario(document.getElementById('screen-content'));
+        }
+
+        function salvarEdicaoDiario(id){
+            const campo=document.getElementById('diarioEdit_'+id);
+            if(!campo)return;
+            const novoTexto=campo.value.trim();
+            if(!novoTexto){alert('A anotação não pode ficar vazia.');return;}
+            const notas=getNotasDiario();
+            const indice=notas.findIndex(function(nota){return nota.id===id;});
+            if(indice===-1)return;
+            notas[indice].texto=novoTexto;
+            notas[indice].data=notas[indice].data||new Date().toISOString();
+            salvarNotasDiario(notas);
+            diarioNotaEditandoId=null;
+            renderDiario(document.getElementById('screen-content'));
+        }
+
+        function excluirNotaDiario(id){
+            const notas=getNotasDiario();
+            const indice=notas.findIndex(function(nota){return String(nota.id)===String(id);});
+            if(indice===-1)return;
+
+            notas.splice(indice,1);
+            salvarNotasDiario(notas);
+
+            if(diarioNotaEditandoId===id)diarioNotaEditandoId=null;
+
+            renderDiario(document.getElementById('screen-content'));
+
+            const lista=document.getElementById('diarioNotasLista');
+            if(lista){
+                const aviso=document.createElement('div');
+                aviso.className='diario-success-msg';
+                aviso.style.display='block';
+                aviso.style.marginTop='8px';
+                aviso.textContent='🗑️ Anotação excluída com sucesso!';
+                lista.parentNode.insertBefore(aviso,lista);
+                setTimeout(function(){
+                    if(aviso.parentNode)aviso.parentNode.removeChild(aviso);
+                },2000);
+            }
+        }
 
         // ========== PERFIL ==========
-        function renderPerfil(container){const u=AppState.user||{nome:'Usuário',email:'usuario@email.com'},pl=(u.nome||'U').charAt(0).toUpperCase();container.innerHTML='<div class="perfil-screen"><div class="perfil-card"><div class="perfil-avatar"><span class="perfil-avatar-letra">'+pl+'</span></div><h2 class="perfil-nome">'+(u.nome||'Usuário')+'</h2><p class="perfil-email">'+(u.email||'usuario@email.com')+'</p></div><button class="perfil-logout-btn" onclick="logout()">🚪 Sair da conta</button></div>';}
+        function renderPerfil(container){
+            const u=AppState.user||{nome:'Usuário'};
+            const nome=u.nome||'Usuário';
+            const pl=nome.charAt(0).toUpperCase();
+            const fotoPerfil=localStorage.getItem('@organizame:foto_perfil')||'';
+            const avatarHtml=fotoPerfil
+                ? '<img src="'+fotoPerfil+'" class="perfil-avatar-img" alt="Foto de perfil" />'
+                : '<span class="perfil-avatar-letra">'+pl+'</span>';
+
+            container.innerHTML='<div class="perfil-screen">'+
+                '<div class="perfil-card">'+
+                    '<div class="perfil-avatar">'+avatarHtml+'</div>'+
+                    '<h2 class="perfil-nome">'+nome+'</h2>'+
+                    '<p class="perfil-foto-texto">Escolha uma foto para o seu perfil</p>'+
+                    '<div class="perfil-foto-botoes">'+
+                        '<button class="perfil-foto-btn" onclick="abrirSeletorFoto()">🖼️ Escolher foto</button>'+
+                        '<button class="perfil-foto-btn" onclick="abrirCameraFoto()">📷 Tirar foto</button>'+
+                    '</div>'+
+                    '<input type="file" id="fotoPerfilUpload" class="perfil-foto-input" accept="image/*" onchange="processarFotoPerfil(this)" />'+
+                    '<input type="file" id="fotoPerfilCamera" class="perfil-foto-input" accept="image/*" capture="environment" onchange="processarFotoPerfil(this)" />'+
+                    (fotoPerfil ? '<button class="perfil-foto-btn secundario" style="margin-top:10px;" onclick="removerFotoPerfil()">🗑️ Remover foto</button>' : '')+
+                '</div>'+
+                '<button class="perfil-logout-btn" onclick="logout()">🚪 Sair da conta</button>'+
+            '</div>';
+        }
+
+        function abrirSeletorFoto(){
+            const input=document.getElementById('fotoPerfilUpload');
+            if(input) input.click();
+        }
+
+        function abrirCameraFoto(){
+            const input=document.getElementById('fotoPerfilCamera');
+            if(input) input.click();
+        }
+
+        function processarFotoPerfil(input){
+            if(!input || !input.files || !input.files[0]) return;
+            const arquivo=input.files[0];
+            if(!arquivo.type || arquivo.type.indexOf('image/')!==0){
+                alert('Selecione uma imagem válida.');
+                input.value='';
+                return;
+            }
+
+            const leitor=new FileReader();
+            leitor.onload=function(event){
+                const img=new Image();
+                img.onload=function(){
+                    const tamanhoMaximo=800;
+                    let largura=img.width;
+                    let altura=img.height;
+
+                    if(largura>tamanhoMaximo || altura>tamanhoMaximo){
+                        const escala=Math.min(tamanhoMaximo/largura,tamanhoMaximo/altura);
+                        largura=Math.round(largura*escala);
+                        altura=Math.round(altura*escala);
+                    }
+
+                    const canvas=document.createElement('canvas');
+                    canvas.width=largura;
+                    canvas.height=altura;
+                    const ctx=canvas.getContext('2d');
+                    ctx.drawImage(img,0,0,largura,altura);
+
+                    const fotoReduzida=canvas.toDataURL('image/jpeg',0.82);
+                    try{
+                        localStorage.setItem('@organizame:foto_perfil',fotoReduzida);
+                        renderPerfil(document.getElementById('screen-content'));
+                    }catch(error){
+                        console.error('Erro ao salvar foto de perfil:',error);
+                        alert('Não foi possível salvar essa foto. Tente uma imagem menor.');
+                    }
+                    input.value='';
+                };
+                img.onerror=function(){
+                    alert('Não foi possível carregar a imagem.');
+                    input.value='';
+                };
+                img.src=event.target.result;
+            };
+            leitor.onerror=function(){
+                alert('Não foi possível ler a imagem.');
+                input.value='';
+            };
+            leitor.readAsDataURL(arquivo);
+        }
+
+        function removerFotoPerfil(){
+            if(confirm('Deseja remover sua foto de perfil?')){
+                localStorage.removeItem('@organizame:foto_perfil');
+                renderPerfil(document.getElementById('screen-content'));
+            }
+        }
+
         function logout(){if(confirm('Deseja realmente sair?')){localStorage.removeItem('user');AppState.user=null;navigateTo('Login');}}
         
             // ========== AGENDA ==========
@@ -353,7 +606,7 @@
             loadAgendaSlots();
             container.innerHTML = '<div class="agenda-screen">' +
                 '<div class="agenda-header-container"><div class="agenda-header"><h2 class="agenda-header-title">Minha Agenda</h2></div></div>' +
-                '<div class="agenda-info-banner"><span>💡</span><span class="agenda-info-text">Toque duas vezes em um dia para adicionar horário. Você pode adicionar <span class="agenda-info-bold">vários horários</span> no mesmo dia.</span></div>' +
+                '<div class="agenda-info-banner"><span>💡</span><span class="agenda-info-text">Escolha um dia para adicionar horário. Você pode adicionar <span class="agenda-info-bold">vários horários</span> no mesmo dia.</span></div>' +
                 '<div class="agenda-calendar-controls">' +
                     '<button class="agenda-control-btn" onclick="agendaChangeMonth(-1)">◀</button>' +
                     '<button class="agenda-month-title" onclick="agendaGoToToday()"><span class="agenda-month-text" id="agendaMonthText"></span></button>' +
@@ -476,7 +729,7 @@
             }
         }
 
-        function abrirModal(editing) {
+        function abrirModal(editing, preservarDados) {
             var modal = document.getElementById('agendaModal');
             var title = document.getElementById('modalTitle');
             var confirmText = document.getElementById('modalConfirmText');
@@ -489,9 +742,11 @@
             } else {
                 if (title) title.textContent = '📅 Novo Compromisso';
                 if (confirmText) confirmText.textContent = 'Criar compromisso';
-                newSlotData = { titulo: '', descricao: '', horaInicio: '', horaFim: '', disponivel: true, recorrente: false, prioridade: 'media', cor: '#3B82F6', diasSemana: [] };
-                selectedDays = [];
-                editingSlotId = null;
+                if (!preservarDados) {
+                    newSlotData = { titulo: '', descricao: '', horaInicio: '', horaFim: '', disponivel: true, recorrente: false, prioridade: 'media', cor: '#3B82F6', diasSemana: [] };
+                    selectedDays = [];
+                    editingSlotId = null;
+                }
             }
             
             var dateStr = agendaSelectedDate.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
@@ -531,9 +786,9 @@
                 '<div class="modal-horario-grid">' + fimGridHtml + '</div>' +
                 '<div class="modal-label">🎯 Prioridade</div>' +
                 '<div class="modal-prioridade-container">' +
-                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'baixa' ? ' active' : '') + '" onclick="newSlotData.prioridade=\'baixa\';abrirModal(' + editing + ');">🟢 Baixa</div>' +
-                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'media' ? ' active' : '') + '" onclick="newSlotData.prioridade=\'media\';abrirModal(' + editing + ');">🟡 Média</div>' +
-                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'alta' ? ' active' : '') + '" onclick="newSlotData.prioridade=\'alta\';abrirModal(' + editing + ');">🔴 Alta</div>' +
+                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'baixa' ? ' active' : '') + '" onclick="salvarCamposModalNoEstado();newSlotData.prioridade=\'baixa\';abrirModal(' + editing + ', true);">🟢 Baixa</div>' +
+                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'media' ? ' active' : '') + '" onclick="salvarCamposModalNoEstado();newSlotData.prioridade=\'media\';abrirModal(' + editing + ', true);">🟡 Média</div>' +
+                    '<div class="modal-prioridade-btn' + (newSlotData.prioridade === 'alta' ? ' active' : '') + '" onclick="salvarCamposModalNoEstado();newSlotData.prioridade=\'alta\';abrirModal(' + editing + ', true);">🔴 Alta</div>' +
                 '</div>' +
                 '<div class="modal-switch-row">' +
                     '<div class="modal-switch-left">🔄 Repetir semanalmente</div>' +
@@ -544,23 +799,34 @@
             modal.classList.add('show');
         }
 
+        function salvarCamposModalNoEstado() {
+            var tituloInput = document.getElementById('slotTitulo');
+            var descInput = document.getElementById('slotDescricao');
+            if (tituloInput) newSlotData.titulo = tituloInput.value;
+            if (descInput) newSlotData.descricao = descInput.value;
+        }
+
         function selecionarHoraInicio(hora) {
+            salvarCamposModalNoEstado();
             newSlotData.horaInicio = hora;
-            abrirModal(!!editingSlotId);
+            abrirModal(!!editingSlotId, true);
         }
 
         function selecionarHoraFim(hora) {
+            salvarCamposModalNoEstado();
             newSlotData.horaFim = hora;
-            abrirModal(!!editingSlotId);
+            abrirModal(!!editingSlotId, true);
         }
 
         function toggleRecorrente() {
+            salvarCamposModalNoEstado();
             newSlotData.recorrente = !newSlotData.recorrente;
             if (!newSlotData.recorrente) selectedDays = [];
-            abrirModal(!!editingSlotId);
+            abrirModal(!!editingSlotId, true);
         }
 
         function toggleDaySelection(dayIndex) {
+            salvarCamposModalNoEstado();
             var found = false;
             for (var i = 0; i < selectedDays.length; i++) {
                 if (selectedDays[i] === dayIndex) {
@@ -570,7 +836,7 @@
                 }
             }
             if (!found) selectedDays.push(dayIndex);
-            abrirModal(!!editingSlotId);
+            abrirModal(!!editingSlotId, true);
         }
 
         function fecharModal() {
