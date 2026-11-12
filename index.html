@@ -1,1 +1,103 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#edf0e7"><title>Organiza-Me — Um dia de cada vez</title><link rel="manifest" href="manifest.json"><link rel="icon" href="logo.png"><link rel="apple-touch-icon" href="logo.png"><link rel="stylesheet" href="style.css"></head><body><aside><a class="brand" href="#inicio"><img src="logo.png" alt=""><span>Organiza-Me<small>UM DIA DE CADA VEZ</small></span></a><nav aria-label="Navegação principal"></nav><div class="aside-bottom"><p>Menos pressa.<br>Mais espaço para você.</p><small>Seus dados ficam neste navegador.</small><button class="glass" id="theme">◐ <span>Alternar tema</span></button></div></aside><main><header><span id="breadcrumb">Seu espaço pessoal</span><button class="avatar" id="profileButton" aria-label="Abrir perfil">M</button></header><div id="view"></div><footer>Organizar também é cuidar de si.<span>Organiza-Me</span></footer></main><dialog id="editor"><form id="eventForm"><div class="dialog-head"><div><small>ABRA ESPAÇO NA SUA ROTINA</small><h2 id="dialogTitle">Novo compromisso</h2></div><button type="button" class="icon-btn" id="closeDialog" aria-label="Fechar">×</button></div><input type="hidden" name="id"><label>Título<input name="title" required maxlength="160" placeholder="O que você tem em mente?"></label><label>Data<input name="date" type="date" required></label><div class="two"><label>Início<input name="start" type="time" required></label><label>Término<input name="end" type="time" required></label></div><label class="check"><input type="checkbox" name="allDay"> Dia inteiro</label><label>Descrição<textarea name="description" rows="3" placeholder="Detalhes, local ou algo para lembrar"></textarea></label><div class="two"><label>Prioridade<select name="priority"><option value="normal">Normal</option><option value="alta">Alta</option><option value="baixa">Baixa</option></select></label><label>Repetir<select name="repeat"><option value="none">Não repetir</option><option value="weekly">Toda semana</option></select></label></div><label id="untilLabel" hidden>Repetir até<input name="until" type="date"></label><label id="scopeLabel" hidden>Aplicar alteração<select name="scope"><option value="one">Somente este compromisso</option><option value="future">Este e os próximos</option><option value="all">Toda a série</option></select></label><p id="formError" role="alert"></p><div class="dialog-actions"><button type="button" class="glass" id="cancelDialog">Cancelar</button><button class="glass primary" type="submit">Salvar compromisso <span>↗</span></button></div></form></dialog><div id="toast" role="status"></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#edf0e7" />
+    <title>Organiza-Me — Um dia de cada vez</title>
+    <meta name="description" content="Um dia de cada vez. Sua agenda e suas anotações em um só lugar com design acolhedor e foco em bem-estar." />
+    <meta property="og:title" content="Organiza-Me — Um dia de cada vez" />
+    <meta property="og:description" content="Um dia de cada vez. Sua agenda e suas anotações em um só lugar com design acolhedor e foco em bem-estar." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside>
+      <div class="aside-top">
+        <a class="brand" href="#inicio">
+          <img src="/logo.png" alt="" />
+          <span>Organiza-Me<small>UM DIA DE CADA VEZ</small></span>
+        </a>
+        <button type="button" class="icon-btn collapse-toggle-btn" id="toggleSidebar" aria-label="Recolher menu lateral" title="Recolher menu lateral">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="collapse-icon"><path d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg>
+        </button>
+      </div>
+      <nav aria-label="Navegação principal"></nav>
+      <div class="aside-bottom">
+        <p>Menos pressa.<br />Mais espaço para você.</p>
+        <small>Seus dados ficam neste navegador.</small>
+        <button class="glass" id="theme">◐ <span>Alternar tema</span></button>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <div class="header-left">
+          <button type="button" class="icon-btn header-toggle-btn" id="headerToggleSidebar" aria-label="Alternar menu lateral" title="Alternar menu lateral">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <span id="breadcrumb">Seu espaço pessoal</span>
+        </div>
+        <button class="avatar" id="profileButton" aria-label="Abrir perfil">M</button>
+      </header>
+      <div id="view"></div>
+      <footer>
+        Organizar também é cuidar de si.<span>Organiza-Me</span>
+      </footer>
+    </main>
+    <dialog id="editor">
+      <form id="eventForm">
+        <div class="dialog-head">
+          <div>
+            <small>ABRA ESPAÇO NA SUA ROTINA</small>
+            <h2 id="dialogTitle">Novo compromisso</h2>
+          </div>
+          <button type="button" class="icon-btn" id="closeDialog" aria-label="Fechar">×</button>
+        </div>
+        <input type="hidden" name="id" />
+        <label>Título<input name="title" required maxlength="160" placeholder="O que você tem em mente?" /></label>
+        <label>Data<input name="date" type="date" required /></label>
+        <div class="two">
+          <label>Início<input name="start" type="time" required /></label>
+          <label>Término<input name="end" type="time" required /></label>
+        </div>
+        <label class="check"><input type="checkbox" name="allDay" /> Dia inteiro</label>
+        <label>Descrição<textarea name="description" rows="3" placeholder="Detalhes, local ou algo para lembrar"></textarea></label>
+        <div class="two">
+          <label>Prioridade
+            <select name="priority">
+              <option value="normal">Normal</option>
+              <option value="alta">Alta</option>
+              <option value="baixa">Baixa</option>
+            </select>
+          </label>
+          <label>Repetir
+            <select name="repeat">
+              <option value="none">Não repetir</option>
+              <option value="weekly">Toda semana</option>
+            </select>
+          </label>
+        </div>
+        <label id="untilLabel" hidden>Repetir até<input name="until" type="date" /></label>
+        <label id="scopeLabel" hidden>Aplicar alteração
+          <select name="scope">
+            <option value="one">Somente este compromisso</option>
+            <option value="future">Este e os próximos</option>
+            <option value="all">Toda a série</option>
+          </select>
+        </label>
+        <p id="formError" role="alert"></p>
+        <div class="dialog-actions">
+          <button type="button" class="glass" id="cancelDialog">Cancelar</button>
+          <button class="glass primary" type="submit">Salvar compromisso <span>↗</span></button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" role="status"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
+
