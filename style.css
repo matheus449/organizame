@@ -235,7 +235,7 @@ body.sidebar-collapsed {
   flex-direction: column;
   padding: 20px 22px;
   border-radius: 20px;
-  cursor: pointer;
+  cursor: default;
   min-height: 155px;
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
@@ -508,3 +508,784 @@ body.dark .note-color-badge.vermelho {
   }
 }
 
+/* ==========================================================================
+   Interactive Checklists, Quick Input, Color Filters, Done Events & Focus Timer
+   ========================================================================== */
+
+/* Interactive Checklists inside Boards & Notes */
+.note-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.text-line {
+  display: block;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 13.5px;
+  line-height: 1.5;
+  user-select: none;
+}
+
+.checklist-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checklist-item .check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid var(--muted);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background: rgba(255, 255, 255, 0.45);
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+body.dark .checklist-item .check-box {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.checklist-item .check-box svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.5;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.checklist-item.is-checked .check-box {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--surface);
+}
+
+.checklist-item.is-checked .check-box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checklist-item.is-checked .check-label {
+  text-decoration: line-through;
+  color: var(--muted);
+  opacity: 0.78;
+}
+
+/* Quick Add Input inside Fixed Urgency Boards */
+.board-quick-form {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(120, 130, 110, 0.25);
+}
+
+.board-quick-input {
+  width: 100%;
+  border: 1px solid transparent !important;
+  background: rgba(255, 255, 255, 0.48) !important;
+  border-radius: 10px !important;
+  padding: 7px 10px !important;
+  font-size: 12.5px !important;
+  color: var(--ink);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+body.dark .board-quick-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.board-quick-input:focus {
+  background: var(--surface) !important;
+  border-color: var(--line) !important;
+  outline: none !important;
+}
+
+/* Priority / Color Filter Bar in Notes */
+.color-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  margin-bottom: 22px;
+}
+
+.color-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.18s ease;
+}
+
+.color-filter-chip:hover {
+  color: var(--ink);
+  border-color: var(--green);
+}
+
+.color-filter-chip.active {
+  background: var(--soft);
+  color: var(--ink);
+  border-color: var(--green);
+  font-weight: 600;
+}
+
+/* Editor Toolbar (+ Item de checklist) */
+.editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.editor-toolbar .text-btn {
+  min-height: 28px;
+  padding: 2px 8px;
+  font-size: 11.5px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* Completed Events in Agenda & Home */
+.event.is-done {
+  opacity: 0.65;
+}
+
+.event.is-done .event-title-text,
+.event.is-done .event-time,
+.event.is-done .event-time small {
+  text-decoration: line-through;
+}
+
+.check-event-btn.checked {
+  color: var(--green);
+  background: var(--soft);
+}
+
+@media (max-width: 760px) {
+  .event {
+    grid-template-columns: 52px minmax(0, 1fr) 38px 38px 38px !important;
+  }
+}
+
+/* Calendar Multi-Dots & Day Header */
+.day-dots {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.calendar button .day-dots i {
+  position: static;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.calendar button .day-dots i.high {
+  background: #c85a44;
+}
+
+.calendar button .day-dots i.done {
+  opacity: 0.4;
+}
+
+.agenda-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+/* Focus / Pause Timer on Home Screen */
+.focus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.focus-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid var(--line);
+}
+
+body.dark .focus-widget {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.focus-clock {
+  font-size: 24px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.focus-presets {
+  display: flex;
+  gap: 5px;
+}
+
+.focus-chip {
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.focus-chip.active {
+  background: var(--soft);
+  color: var(--ink);
+  border-color: var(--green);
+  font-weight: 600;
+}
+
+.focus-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.focus-controls .glass {
+  padding: 6px 14px;
+  min-height: 34px;
+  font-size: 12px;
+}
+
+/* Backup Reminder Notice in Profile */
+.backup-notice {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 12px;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+}
+
+.backup-notice.needs-attention {
+  border-color: #dfc46e;
+  background: rgba(235, 190, 60, 0.12);
+}
+
+/* Activity Schedule & Notification Settings */
+.notify-settings-box {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--line);
+}
+
+body.dark .notify-settings-box {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.notify-box-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.2px;
+  margin-bottom: 6px;
+}
+
+.notify-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.notify-checks .check {
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Checklist Row with Activity Time & Clock Button */
+.checklist-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  border-radius: 12px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  background: rgba(255, 255, 255, 0.36);
+  border: 1px solid rgba(120, 140, 115, 0.14);
+  white-space: normal;
+}
+
+body.dark .checklist-row {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.checklist-row:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+body.dark .checklist-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.checklist-row .checklist-item {
+  width: 100%;
+  margin: 0;
+  white-space: normal;
+}
+
+.checklist-row .checklist-item .check-label {
+  flex: 1;
+  min-width: 0;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.checklist-row .checklist-item:hover {
+  background: transparent;
+}
+
+.checklist-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 27px;
+  flex-wrap: wrap;
+}
+
+.item-time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.item-time-badge.has-bell {
+  background: rgba(94, 158, 108, 0.16);
+  border-color: rgba(94, 158, 108, 0.45);
+  color: #2f5e3b;
+}
+
+body.dark .item-time-badge.has-bell {
+  background: rgba(110, 185, 128, 0.18);
+  border-color: rgba(110, 185, 128, 0.45);
+  color: #b7e4c2;
+}
+
+.item-time-badge svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.item-clock-btn {
+  min-width: 28px;
+  min-height: 28px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 8px;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.checklist-row:hover .item-clock-btn,
+.item-clock-btn.active {
+  opacity: 1;
+}
+
+.item-clock-btn.active {
+  color: var(--green);
+  background: var(--soft);
+}
+
+.item-clock-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.item-del-btn {
+  font-size: 16px;
+  line-height: 1;
+  margin-left: auto;
+}
+
+.item-del-btn:hover {
+  color: #c85a44;
+  background: rgba(200, 90, 68, 0.12);
+}
+
+/* Horário riscado quando a atividade é marcada como concluída */
+.checklist-row.is-checked .item-time-badge,
+.checklist-row.is-checked .item-time-badge .badge-time-text,
+.item-time-badge.is-completed,
+.item-time-badge.is-completed .badge-time-text {
+  text-decoration: line-through;
+  opacity: 0.52;
+}
+
+/* ==========================================================================
+   Notificação Estilo Windows 10 / 11 (Nativa Escura no Canto Inferior Direito)
+   ========================================================================== */
+.win-notify-stack {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 390px;
+  width: calc(100vw - 32px);
+  pointer-events: none;
+}
+
+.win-notify-card {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  background: #2b2b2b;
+  color: #ffffff;
+  border: 1px solid #3f3f3f;
+  border-radius: 3px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  animation: winToastIn 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.win-notify-card.closing {
+  animation: winToastOut 0.2s ease-in forwards;
+}
+
+@keyframes winToastIn {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes winToastOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+}
+
+.win-notify-icon {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  background: #4e6851;
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.win-notify-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+.win-notify-fallback-icon {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.win-notify-fallback-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: #ffffff;
+  fill: none;
+  stroke-width: 2;
+}
+
+.win-notify-content {
+  flex: 1;
+  min-width: 0;
+  padding-right: 16px;
+}
+
+.win-notify-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0 0 4px 0;
+}
+
+.win-notify-body {
+  font-size: 14px;
+  font-weight: 400;
+  color: #cfcfcf;
+  line-height: 1.38;
+  margin: 0 0 10px 0;
+  word-break: break-word;
+}
+
+.win-notify-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: #999999;
+}
+
+.win-notify-mute {
+  min-height: 24px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #404040;
+  border: 1px solid #575757;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.win-notify-mute:hover {
+  background: #525252;
+}
+
+.win-notify-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #aaaaaa;
+  font-size: 18px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.win-notify-close:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Widget de Progresso Diário e Bem-Estar (Topo do Painel Principal)
+   ========================================================================== */
+.daily-progress-widget {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(226, 236, 223, 0.65));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+body.dark .daily-progress-widget {
+  background: linear-gradient(135deg, rgba(35, 42, 36, 0.85), rgba(28, 36, 30, 0.72));
+}
+
+.progress-ring-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.progress-ring-svg {
+  width: 88px;
+  height: 88px;
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: var(--soft);
+  stroke-width: 7.5;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 7.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-ring-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.progress-ring-label strong {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.progress-ring-label span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.progress-widget-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.progress-widget-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.progress-count-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.daily-progress-widget h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 2px 0 4px;
+  letter-spacing: -0.3px;
+}
+
+.daily-progress-widget p {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--soft);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), #88a484);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-pillars {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.progress-pillars strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .daily-progress-widget {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+  }
+}

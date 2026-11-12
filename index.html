@@ -65,6 +65,23 @@
           <label>Término<input name="end" type="time" required /></label>
         </div>
         <label class="check"><input type="checkbox" name="allDay" /> Dia inteiro</label>
+        <div class="notify-settings-box" id="eventNotifyBox">
+          <span class="notify-box-title">Avisos e notificações desta atividade</span>
+          <div class="notify-checks">
+            <label class="check"><input type="checkbox" name="notifyStart" checked /> Avisar sobre o horário de início</label>
+            <label class="check"><input type="checkbox" name="notifyEnd" /> Avisar sobre o horário de término</label>
+          </div>
+          <label id="eventNotifyBeforeWrap">Entregar notificação com quanto tempo antes?
+            <select name="notifyBefore">
+              <option value="0">No horário exato (0 min antes)</option>
+              <option value="5">5 minutos antes</option>
+              <option value="10" selected>10 minutos antes</option>
+              <option value="15">15 minutos antes</option>
+              <option value="30">30 minutos antes</option>
+              <option value="60">1 hora antes</option>
+            </select>
+          </label>
+        </div>
         <label>Descrição<textarea name="description" rows="3" placeholder="Detalhes, local ou algo para lembrar"></textarea></label>
         <div class="two">
           <label>Prioridade
